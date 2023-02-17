@@ -1,11 +1,11 @@
 body{
     background-color: #0b0b441c;
 }
-.signup-title{
+.register-page-title{
     text-align: center;
     color:#0b045f;
 }
-.signup-wrapper{
+.register-page-wrapper{
     display: flex;
     max-width: 40%;
     margin: 0 auto;
@@ -17,55 +17,55 @@ body{
 }
 
 @media only screen and (max-width: 767px) {
-    .signup-wrapper {
+    .register-page-wrapper {
         max-width: 75%;
     }
 }
 @media only screen and (max-width: 425px) {
-    .signup-wrapper {
+    .register-page-wrapper {
         max-width: 86%;
     }
 }
 @media only screen and (max-width: 375px) {
-    .signup-wrapper {
+    .register-page-wrapper {
         max-width: 92%;
     }
 }
-.signup-wrapper h2{
+.register-page-wrapper h2{
     color: #3c449a;
 }
-.signup-wrapper .sidebar{
+.register-page-wrapper .sidebar{
     height: 34rem;
     width: 25%;
     border-radius: 8px 0 0 8px;
     background-image: url('https://thumbs.dreamstime.com/b/glowing-smooth-gradient-website-template-banner-header-sidebar-graphic-blurred-blue-abstract-background-neon-pleasant-155830144.jpg');
 }
 @media only screen and (max-width: 1000px) {
-    .signup-wrapper .sidebar {
+    .register-page-wrapper .sidebar {
         width: 17%;
     }
 }
 @media only screen and (max-width: 838px) {
-    signup-wrapper .sidebar {
+    register-page-wrapper .sidebar {
         width: 0%;
     }
 }
-.signup-wrapper .formBar{
+.register-page-wrapper .formBar{
     margin: 0 auto;
     padding: 5px;
 }
-.signup-wrapper .form input{
+.register-page-wrapper .form input{
     width: 80%;
     height: 25px;
     border: 1px solid #cce5ff;
     padding: 1px 3px;
     border-radius: 5px;
 }
-.signup-wrapper .form input:focus{
+.register-page-wrapper .form input:focus{
     outline-color: #4da3ff;
     background-color: #e6f2ff;
 }
-.signup-wrapper .form button {
+.register-page-wrapper .form button {
     padding: 12px 30px;
     color: white;
     border: none;

@@ -37,13 +37,13 @@ export default function SignUp() {
 
     return(
         <div>
-            <div className="signup-title">
+            <div className="register-page-title">
                 <h1> Welcome to The Auto Room</h1>
                 <p>Join <b>Auto Room</b> - easy to use and user friendly <br />
                     Explore new car models. </p>
             </div>
 
-            <div className="signup-wrapper">
+            <div className="register-page-wrapper">
                 <div className="sidebar">
                 </div>
                 <div className="formBar">
