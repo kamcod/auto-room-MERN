@@ -33,7 +33,7 @@ app.use(cookieParser());
 app.use(xss())
 app.use(cors({ credentials: true, origin: process.env.frontend_domain }))
 app.use(helmet())
-app.use('/app', registerRoutes)
+app.use('/api', registerRoutes)
 
 app.use(errorHandler)
 app.use(notFound)

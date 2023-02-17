@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const {badRequestError} = require('../errors/index');
+const {badRequestError} = require('../../errors/index');
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 

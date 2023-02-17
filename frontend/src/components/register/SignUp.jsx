@@ -6,6 +6,7 @@ import AppConfig from "../../utils/AppConfig";
 
 export default function SignUp() {
     const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState(false);
     const [username, setUsername] = useState();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
@@ -21,6 +22,7 @@ export default function SignUp() {
     }
     const registerUser = (event) => {
         event.preventDefault();
+        setIsLoading(true);
         axios.post(AppConfig.apis.registerUser, {
             name: username,
             email,
@@ -28,10 +30,15 @@ export default function SignUp() {
         })
             .then(res => {
                 if(res.status === 201) {
+                    setIsLoading(false);
+                    setEmail('');
+                    setPassword('');
+                    setUsername('');
                     navigate("/login", { replace: true });
                 }
             })
             .catch (err => {
+                setIsLoading(false);
                 console.log("error", err);
             })
     }
@@ -59,7 +66,9 @@ export default function SignUp() {
                         <label htmlFor="passwd">New Password: </label> <br />
                         <input type="password" id="passwd" name="password" value={password} onChange={onChangePasswd} />
                         <br /> <br />
-                        <button type="submit"> Register </button>
+                        <button type="submit" disabled={isLoading}>
+                            {isLoading ? 'loading...' : 'Register'}
+                        </button>
                     </form>
                     <br />
                     Already have an account? <Link to='/login'>Login</Link> here
