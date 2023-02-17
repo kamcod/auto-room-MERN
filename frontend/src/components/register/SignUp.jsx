@@ -2,6 +2,7 @@ import {useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import "../../assets/styles/register.css";
 import axios from "axios";
+import AppConfig from "../../utils/AppConfig";
 
 export default function SignUp() {
     const navigate = useNavigate();
@@ -20,19 +21,19 @@ export default function SignUp() {
     }
     const registerUser = (event) => {
         event.preventDefault();
-        // axios.post(AppConfig.apis.registerUser, {
-        //     name: username,
-        //     email,
-        //     password
-        // })
-        //     .then(res => {
-        //         if(res.status === 201) {
-        //             navigate("/login", { replace: true });
-        //         }
-        //     })
-        //     .catch (err => {
-        //         console.log("error", err);
-        //     })
+        axios.post(AppConfig.apis.registerUser, {
+            name: username,
+            email,
+            password
+        })
+            .then(res => {
+                if(res.status === 201) {
+                    navigate("/login", { replace: true });
+                }
+            })
+            .catch (err => {
+                console.log("error", err);
+            })
     }
 
     return(
