@@ -4,10 +4,21 @@ const User = require('../db/model/user');
 const Cars = require('../db/model/cars')
 
 const getDashboardStats = async (req, res) => {
+    const {page} = req.query;
+    const perPage = 3;
     const user = await User.findOne({_id: req.user.userId})
     const cars = await Cars.find({createdBy: req.user.userId})
+        .skip(perPage * (page-1))
+        .limit(perPage)
     if(user){
-        res.status(StatusCodes.OK).json({name: user.name, cars})
+        res.status(StatusCodes.OK).json({
+            name: user.name,
+            cars,
+            pagination: {
+                perPage,
+                currentPage: page,
+            }
+        })
     } else {
         throw new badRequestError("User Not Found");
     }

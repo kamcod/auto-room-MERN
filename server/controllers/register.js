@@ -6,7 +6,6 @@ const sendMail = require("../utils/sendMail");
 
 const SignUp = async (req, res) =>{
     const {name, email} = req.body;
-
     let rnum = Math.floor(Math.random() * name.length);
     let randomPassword = name.substring(rnum,rnum+3) + '@' + email.substring(rnum+1,rnum+4) + rnum + 1000;
     const user = await User.create({name, email, password: randomPassword});

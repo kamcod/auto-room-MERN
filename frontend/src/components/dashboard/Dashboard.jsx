@@ -2,20 +2,28 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import AppConfig from "../../utils/AppConfig";
 import "../../assets/styles/dashboard.css"
+import Pagination from 'react-bootstrap/Pagination';
 import AddCarModal from "./AddCarModal";
 
 export default function Dashboard() {
     const [userName, setUserName] = useState();
+    const [currentPage, setCurrentPage] = useState(1);
+    const [paginationItems, setPaginationItems] = useState([]);
     const [carsData, setCarsData] = useState([]);
     const [editCarData, setEditCarData] = useState();
     const [showAddCarModal, setShowAddCarModal] = useState(false);
 
+    const setPagination = (data) => {
+
+    }
+
     const fetchDashboardData = () => {
-        axios.get(AppConfig.apis.getDashboardStats)
+        axios.get(`${AppConfig.apis.getDashboardStats}?page=${currentPage}`)
             .then(res => {
                 if(res.status === 200) {
                     const {cars, name} = res.data;
                     setCarsData(cars);
+                    setPagination(cars);
                     setUserName(name);
                 }
             })
@@ -100,6 +108,10 @@ export default function Dashboard() {
                     You have not registered any car yet. <br/>
                     <button type="button" className="add-new-car-btn" onClick={() => setShowAddCarModal(true)}>Add New Car</button>
                 </div>}
+            </div>
+
+            <div className="pagination-wrapper">
+                <Pagination size="sm">{paginationItems}</Pagination>
             </div>
 
 
