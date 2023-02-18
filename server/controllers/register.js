@@ -1,17 +1,31 @@
-
 const User = require('../db/model/user')
 const {badRequestError, unAuthenticatedError} = require('../errors/index')
 
 const {StatusCodes} = require('http-status-codes')
+const sendMail = require("../utils/sendMail");
 
 const SignUp = async (req, res) =>{
-    const user = await User.create({...req.body})
-    // TODO: send email here!
+    const {name, email} = req.body;
+
+    let rnum = Math.floor(Math.random() * name.length);
+    let randomPassword = name.substring(rnum,rnum+3) + '@' + email.substring(rnum+1,rnum+4) + rnum + 1000;
+    console.log("password is", randomPassword);
+    const user = await User.create({name, email, password: randomPassword});
+
+    await sendMail(email, {
+            subject: 'Account Created',
+            content: `
+                <h3>You have successfully created your account on Auto Room</h3>
+                <p>Use following password to login to your account</p>
+                <b>Your password:</b> ${randomPassword}
+                <p>
+                 <b>Note:</b> Please do not share this pasword to anyone
+                </p>`
+        })
     res.status(StatusCodes.CREATED).json({name: user.name})
 }
 const SignIn = async (req, res) =>{
     const { email, password } = req.body
-
     if (!email || !password) {
         throw new badRequestError('Please provide email and password')
     }
