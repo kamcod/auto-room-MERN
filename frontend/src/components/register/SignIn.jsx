@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import AppConfig from "../../utils/AppConfig";
 
 export default function SignIn(){
     const navigate = useNavigate();
@@ -15,19 +16,19 @@ export default function SignIn(){
     }
     const loginUser = (e) => {
         e.preventDefault();
-        // axios.defaults.withCredentials = true;
-        // axios.post(AppConfig.apis.loginUser, {
-        //     email,
-        //     password
-        // })
-        //     .then(res => {
-        //         if(res.status === 200) {
-        //             navigate("/dashboard", { replace: true });
-        //         }
-        //     })
-        //     .catch(err => {
-        //         console.log("error", err);
-        //     })
+        axios.defaults.withCredentials = true;
+        axios.post(AppConfig.apis.loginUser, {
+            email,
+            password
+        })
+            .then(res => {
+                if(res.status === 200) {
+                    navigate("/dashboard", { replace: true });
+                }
+            })
+            .catch(err => {
+                console.log("error", err);
+            })
     }
     return(
         <div>

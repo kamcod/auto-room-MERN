@@ -9,7 +9,6 @@ export default function SignUp() {
     const [isLoading, setIsLoading] = useState(false);
     const [username, setUsername] = useState();
     const [email, setEmail] = useState();
-    const [password, setPassword] = useState();
 
     const onChangeUsername = (e) => {
         setUsername(e.target.value)
@@ -17,22 +16,17 @@ export default function SignUp() {
     const onChangeEmail = (e) => {
         setEmail(e.target.value)
     }
-    const onChangePasswd = (e) => {
-        setPassword(e.target.value)
-    }
     const registerUser = (event) => {
         event.preventDefault();
         setIsLoading(true);
         axios.post(AppConfig.apis.registerUser, {
             name: username,
-            email,
-            password
+            email
         })
             .then(res => {
                 if(res.status === 201) {
                     setIsLoading(false);
                     setEmail('');
-                    setPassword('');
                     setUsername('');
                     navigate("/login", { replace: true });
                 }
@@ -63,8 +57,6 @@ export default function SignUp() {
                         <label htmlFor="email">Email: </label> <br />
                         <input type="text" id="email" name="email" value={email} onChange={onChangeEmail} />
                         <br /> <br />
-                        <label htmlFor="passwd">New Password: </label> <br />
-                        <input type="password" id="passwd" name="password" value={password} onChange={onChangePasswd} />
                         <br /> <br />
                         <button type="submit" disabled={isLoading}>
                             {isLoading ? 'loading...' : 'Register'}

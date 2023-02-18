@@ -11,6 +11,8 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 
 const registerRoutes = require('./routes/register')
+const jobsRoutes = require('./routes/jobs')
+const authentication = require('./middlewares/authentication')
 
 
 const errorHandler = require('./middlewares/error-handler')
@@ -34,6 +36,7 @@ app.use(xss())
 app.use(cors({ credentials: true, origin: process.env.frontend_domain }))
 app.use(helmet())
 app.use('/api', registerRoutes)
+app.use('/api', authentication, jobsRoutes)
 
 app.use(errorHandler)
 app.use(notFound)
