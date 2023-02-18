@@ -5,6 +5,7 @@ import "../../assets/styles/dashboard.css"
 import AddCarModal from "./AddCarModal";
 
 export default function Dashboard() {
+    const [userName, setUserName] = useState();
     const [carsData, setCarsData] = useState([]);
     const [editCarData, setEditCarData] = useState();
     const [showAddCarModal, setShowAddCarModal] = useState(false);
@@ -13,8 +14,9 @@ export default function Dashboard() {
         axios.get(AppConfig.apis.getDashboardStats)
             .then(res => {
                 if(res.status === 200) {
-                    const {cars} = res.data;
+                    const {cars, name} = res.data;
                     setCarsData(cars);
+                    setUserName(name);
                 }
             })
             .catch(err => {
@@ -49,7 +51,13 @@ export default function Dashboard() {
     }, [])
     return (
         <div>
-            Total Number of Registered Cars: {carsData.length}
+            <div className="dashboard-title">
+                <h1>Welcome {userName}!</h1>
+            </div>
+            <div className="dashboard-card">
+                <p>Registered Cars: </p>
+                <p>{carsData.length < 10 ? `0${carsData.length}` : carsData.length}</p>
+            </div>
 
             <br /><br />
             <AddCarModal
@@ -58,37 +66,40 @@ export default function Dashboard() {
                 refetchData={()=>fetchDashboardData()}
                 editCarData={editCarData}
             />
-            <button type="button" className="add-new-car-btn" onClick={() => setShowAddCarModal(true)}>Add new car</button>
-
-            <br/><br/>
+            {carsData.length > 0 && <div className="table-top-bar">
+                <button type="button" className="add-new-car-btn" onClick={() => setShowAddCarModal(true)}>Add New Car</button>
+            </div>}
 
             <div className="cars-table-wrapper">
-                <table className="cars-table">
+                {carsData.length > 0 ? <table className="cars-table">
                     <thead>
                     <tr>
-                        <th>Sr. No#</th>
-                        <th>Registeration No</th>
-                        <th>Make</th>
-                        <th>Model</th>
-                        <th>Color</th>
-                        <th>Actions</th>
+                    <th>Sr. No#</th>
+                    <th>Registeration No</th>
+                    <th>Make</th>
+                    <th>Model</th>
+                    <th>Color</th>
+                    <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
-                    {carsData?.map(({_id: id, registration_no, make, model, color }, index) => {
-                        return <tr key={id}>
-                            <td style={{width: "100px"}}>{index+1}</td>
-                            <td>{registration_no}</td>
-                            <td>{make}</td>
-                            <td>{model}</td>
-                            <td>{color}</td>
-                            <td><span><a style={{cursor: 'pointer'}} onClick={()=>editCar(id)}>edit</a></span>
-                                {` || `}
-                                <span><a style={{cursor: 'pointer'}} onClick={()=>deleteCar(id)}>delete</a></span></td>
-                        </tr>
-                    })}
+                {carsData?.map(({_id: id, registration_no, make, model, color }, index) => {
+                    return <tr key={id}>
+                    <td style={{width: "100px"}}>{index+1}</td>
+                    <td>{registration_no}</td>
+                    <td>{make}</td>
+                    <td>{model}</td>
+                    <td>{color}</td>
+                    <td><span><a href="#" style={{cursor: 'pointer'}} onClick={()=>editCar(id)}>edit</a></span>
+                {` || `}
+                    <span><a href="#" style={{cursor: 'pointer'}} onClick={()=>deleteCar(id)}>delete</a></span></td>
+                    </tr>
+                })}
                     </tbody>
-                </table>
+                </table> : <div>
+                    You have not registered any car yet. <br/>
+                    <button type="button" className="add-new-car-btn" onClick={() => setShowAddCarModal(true)}>Add New Car</button>
+                </div>}
             </div>
 
 
