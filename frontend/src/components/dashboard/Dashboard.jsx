@@ -79,12 +79,14 @@ export default function Dashboard() {
     }, [currentPage])
     return (
         <div>
-            <div className="dashboard-title">
-                <h1>Welcome {userName}!</h1>
-            </div>
-            <div className="dashboard-card">
-                <p>Registered Cars: </p>
-                <p>{carsData.length < 10 ? `0${carsData.length}` : carsData.length}</p>
+            <div className="d-flex flex-column justify-content-center align-items-center">
+                <div className="dashboard-title">
+                    <h1>Welcome {userName}!</h1>
+                </div>
+                <div className="dashboard-card">
+                    <p>Registered Cars: </p>
+                    <p>{carsData.length < 10 ? `0${carsData.length}` : carsData.length}</p>
+                </div>
             </div>
 
             <br /><br />
@@ -103,6 +105,7 @@ export default function Dashboard() {
                     <thead>
                     <tr>
                     <th>Sr. No#</th>
+                    <th>Category</th>
                     <th>Registeration No</th>
                     <th>Make</th>
                     <th>Model</th>
@@ -111,9 +114,10 @@ export default function Dashboard() {
                     </tr>
                     </thead>
                     <tbody>
-                {carsData?.map(({_id: id, registration_no, make, model, color }, index) => {
+                {carsData?.map(({_id: id, category, registration_no, make, model, color }, index) => {
                     return <tr key={id}>
                     <td style={{width: "100px"}}>{index+1}</td>
+                    <td>{category}</td>
                     <td>{registration_no}</td>
                     <td>{make}</td>
                     <td>{model}</td>
@@ -124,16 +128,15 @@ export default function Dashboard() {
                     </tr>
                 })}
                     </tbody>
-                </table> : <div>
+                </table> : <div className="no-data">
                     You have not registered any car yet. <br/>
                     <button type="button" className="add-new-car-btn" onClick={() => setShowAddCarModal(true)}>Add New Car</button>
                 </div>}
             </div>
 
-            <div className="pagination-wrapper">
+            {carsData.length > 0 && <div className="pagination-wrapper">
                 <Pagination size="sm">{paginationItems}</Pagination>
-            </div>
-
+            </div>}
 
         </div>
     )

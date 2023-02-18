@@ -81,4 +81,14 @@
     align-items: center;
     margin-top: 10px;
 }
+.no-data{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+    border: 1px dotted;
+    border-radius: 8px;
+    padding: 60px;
+}
 
