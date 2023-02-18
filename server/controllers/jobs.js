@@ -5,11 +5,13 @@ const Cars = require('../db/model/cars')
 
 const getDashboardStats = async (req, res) => {
     const {page} = req.query;
-    const perPage = 3;
+    const perPage = 5;
     const user = await User.findOne({_id: req.user.userId})
     const cars = await Cars.find({createdBy: req.user.userId})
         .skip(perPage * (page-1))
         .limit(perPage)
+    const carsCount = await Cars.count()
+    const totalPages = Math.ceil(carsCount / perPage)
     if(user){
         res.status(StatusCodes.OK).json({
             name: user.name,
@@ -17,6 +19,7 @@ const getDashboardStats = async (req, res) => {
             pagination: {
                 perPage,
                 currentPage: page,
+                totalPages
             }
         })
     } else {

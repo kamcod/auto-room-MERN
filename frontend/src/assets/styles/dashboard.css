@@ -75,4 +75,10 @@
     outline-color: #4da3ff;
     background-color: #e6f2ff;
 }
+.pagination-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
 

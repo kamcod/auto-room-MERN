@@ -14,16 +14,36 @@ export default function Dashboard() {
     const [showAddCarModal, setShowAddCarModal] = useState(false);
 
     const setPagination = (data) => {
-
-    }
+        let items = [];
+        let active = Number(data.currentPage);
+        let totalPages = Number(data.totalPages);
+        let currentPage = Number(data.currentPage);
+        items.push(
+            <Pagination.First onClick={() => setCurrentPage(1)} disabled={currentPage === 1}/>,
+            <Pagination.Prev onClick={(e) => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}/>,
+        );
+            for (let pageNumber = 1; pageNumber <= totalPages; pageNumber++) {
+                items.push(
+                    <Pagination.Item key={pageNumber} onClick={() => setCurrentPage(pageNumber)}
+                                     active={pageNumber == active}>
+                        {pageNumber}
+                    </Pagination.Item>,
+                );
+            }
+        items.push(
+            <Pagination.Next onClick={(e)=>setCurrentPage(currentPage + 1)} disabled={currentPage === totalPages}/>,
+            <Pagination.Last onClick={(e)=>setCurrentPage(totalPages)} disabled={currentPage === totalPages}/>
+        );
+        setPaginationItems([...items]);
+    };
 
     const fetchDashboardData = () => {
         axios.get(`${AppConfig.apis.getDashboardStats}?page=${currentPage}`)
             .then(res => {
                 if(res.status === 200) {
-                    const {cars, name} = res.data;
+                    const {cars, name, pagination} = res.data;
                     setCarsData(cars);
-                    setPagination(cars);
+                    setPagination(pagination);
                     setUserName(name);
                 }
             })
@@ -56,7 +76,7 @@ export default function Dashboard() {
     }
     useEffect(()=>{
        fetchDashboardData();
-    }, [])
+    }, [currentPage])
     return (
         <div>
             <div className="dashboard-title">
