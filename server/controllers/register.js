@@ -9,10 +9,9 @@ const SignUp = async (req, res) =>{
 
     let rnum = Math.floor(Math.random() * name.length);
     let randomPassword = name.substring(rnum,rnum+3) + '@' + email.substring(rnum+1,rnum+4) + rnum + 1000;
-    console.log("password is", randomPassword);
     const user = await User.create({name, email, password: randomPassword});
-
-    await sendMail(email, {
+    if(user) {
+        await sendMail(email, {
             subject: 'Account Created',
             content: `
                 <h3>You have successfully created your account on Auto Room</h3>
@@ -22,6 +21,8 @@ const SignUp = async (req, res) =>{
                  <b>Note:</b> Please do not share this pasword to anyone
                 </p>`
         })
+    }
+
     res.status(StatusCodes.CREATED).json({name: user.name})
 }
 const SignIn = async (req, res) =>{
