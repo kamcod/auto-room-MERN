@@ -3,28 +3,28 @@ const {badRequestError} = require('../../errors/index');
 
 
 const carSchema = new mongoose.Schema({
-    category:{
+    category: {
         type: String,
         required: [true, "Please provide any category"],
     },
-    make:{
+    make: {
         type: String,
         required: [true, "Please provide any value"],
         minLength: 3,
         maxLength: 50,
     },
-    registration_no:{
+    registration_no: {
         type: String,
         required: [true, "Please provide registration number"],
         minLength: [8, "Please enter minimum 8 characters"],
     },
-    model:{
+    model: {
         type: Number,
         required: [true, "Please provide model number"],
         minLength: [4, "Please enter minimum 4 characters"],
         maxLength: 4,
     },
-    color:{
+    color: {
         required: [true, "Please provide any color"],
         type: String,
     },

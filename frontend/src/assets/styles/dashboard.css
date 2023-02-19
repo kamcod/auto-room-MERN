@@ -35,7 +35,7 @@
 }
 .table-top-bar {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
 }
 .cars-table {
     width: 100%;

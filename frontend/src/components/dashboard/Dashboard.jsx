@@ -4,6 +4,8 @@ import AppConfig from "../../utils/AppConfig";
 import "../../assets/styles/dashboard.css"
 import Pagination from 'react-bootstrap/Pagination';
 import AddCarModal from "./AddCarModal";
+import Form from "react-bootstrap/Form";
+import Spinner from 'react-bootstrap/Spinner';
 
 export default function Dashboard() {
     const [userName, setUserName] = useState();
@@ -12,12 +14,15 @@ export default function Dashboard() {
     const [carsData, setCarsData] = useState([]);
     const [editCarData, setEditCarData] = useState();
     const [showAddCarModal, setShowAddCarModal] = useState(false);
+    const [duplicateLoading, setDuplicateLoading] = useState(null);
+    const [deleteLoading, setDeleteLoading] = useState(null);
 
     const setPagination = (data) => {
         let items = [];
         let active = Number(data.currentPage);
         let totalPages = Number(data.totalPages);
         let currentPage = Number(data.currentPage);
+        console.log('pag data', data);
         items.push(
             <Pagination.First onClick={() => setCurrentPage(1)} disabled={currentPage === 1}/>,
             <Pagination.Prev onClick={(e) => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}/>,
@@ -64,15 +69,37 @@ export default function Dashboard() {
             })
     };
     const deleteCar = (id) => {
+        setDeleteLoading(`dload${id}`);
         axios.delete(`${AppConfig.apis.cars}/${id}`)
             .then(res => {
                 if(res.status === 200) {
+                    setDeleteLoading(null);
                     fetchDashboardData();
                 }
             })
             .catch(err => {
                 console.log("error", err);
             })
+    }
+    const duplicate = (id, category, registration_no, make, model, color ) => {
+        setDuplicateLoading(`load${id}`);
+        axios.post(AppConfig.apis.addCar, {
+            category, make, model: Number(model), color, registration_no
+        })
+            .then(res => {
+                if(res.status === 201) {
+                    setDuplicateLoading(null);
+                    fetchDashboardData();
+                }
+            })
+            .catch(err => {
+                setDuplicateLoading(false);
+                console.log("error", err);
+            })
+    }
+    const viewByCategory = (value) => {
+        let filteredData = carsData.filter(i => i.category === value);
+        setCarsData(filteredData);
     }
     useEffect(()=>{
        fetchDashboardData();
@@ -98,6 +125,17 @@ export default function Dashboard() {
             />
             {carsData.length > 0 && <div className="table-top-bar">
                 <button type="button" className="add-new-car-btn" onClick={() => setShowAddCarModal(true)}>Add New Car</button>
+                <div className="d-flex justify-content-between gap-4 align-items-center">
+                    <a href="#" style={{cursor: 'pointer'}} onClick={fetchDashboardData}>Clear Filter</a>
+                    <Form.Select  style={{width: '250px'}} onChange={(e)=>viewByCategory(e.target.value)}>
+                        <option>View By Category</option>
+                        <option value="car">Car</option>
+                        <option value="bus">Bus</option>
+                        <option value="sedan">Sedan</option>
+                        <option value="suv">SUV</option>
+                        <option value="hatchback">Hatchback</option>
+                    </Form.Select>
+                </div>
             </div>}
 
             <div className="cars-table-wrapper">
@@ -122,10 +160,18 @@ export default function Dashboard() {
                     <td>{make}</td>
                     <td>{model}</td>
                     <td>{color}</td>
-                    <td><span><a href="#" style={{cursor: 'pointer'}} onClick={()=>editCar(id)}>edit</a></span>
-                {` || `}
-                    <span><a href="#" style={{cursor: 'pointer'}} onClick={()=>deleteCar(id)}>delete</a></span></td>
-                    </tr>
+                    <td>
+                        <span><a href="#" style={{cursor: 'pointer'}} onClick={()=>editCar(id)}>Edit</a></span>
+                             {` || `}
+                        <span><a href="#" style={{cursor: 'pointer'}} onClick={()=>deleteCar(id)}>
+                            {deleteLoading === `dload${id}` ? <Spinner animation="border" size="sm" /> : 'Delete' }
+                        </a></span>
+                            {` || `}
+                        <span><a href="#" style={{cursor: 'pointer'}} onClick={()=>duplicate(id, category, registration_no, make, model, color)}>
+                            {duplicateLoading === `load${id}` ? <Spinner animation="border" size="sm" /> : 'Duplicate' }
+                        </a></span>
+                    </td>
+                </tr>
                 })}
                     </tbody>
                 </table> : <div className="no-data">

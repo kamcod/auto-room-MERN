@@ -10,7 +10,7 @@ const getDashboardStats = async (req, res) => {
     const cars = await Cars.find({createdBy: req.user.userId})
         .skip(perPage * (page-1))
         .limit(perPage)
-    const carsCount = await Cars.count()
+    const carsCount = await Cars.find({createdBy: req.user.userId}).count()
     const totalPages = Math.ceil(carsCount / perPage)
     if(user){
         res.status(StatusCodes.OK).json({

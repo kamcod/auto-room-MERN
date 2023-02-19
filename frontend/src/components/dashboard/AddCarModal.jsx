@@ -87,6 +87,7 @@ export default function AddCarModal(props){
                     <form onSubmit={submitCarData}>
                         <Form.Select aria-label="Default select example" onChange={(e)=>setCategory(e.target.value)}>
                             <option>Select Category</option>
+                            <option value="car">Car</option>
                             <option value="bus">Bus</option>
                             <option value="sedan">Sedan</option>
                             <option value="suv">SUV</option>
