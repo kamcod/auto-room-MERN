@@ -86,7 +86,7 @@ export default function Dashboard() {
     }
     const duplicate = (id, category, registration_no, make, model, color ) => {
         setDuplicateLoading(`load${id}`);
-        axios.post(AppConfig.apis.addCar, {
+        axios.post(AppConfig.apis.cars, {
             category, make, model: Number(model), color, registration_no
         })
             .then(res => {

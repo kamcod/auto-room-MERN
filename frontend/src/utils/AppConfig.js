@@ -10,7 +10,6 @@ const AppConfig = {
         loginUser: `${apiUrl}/login`,
         logoutUser: `${apiUrl}/logout`,
         getDashboardStats: `${apiUrl}/dashboard`,
-        addCar: `${apiUrl}/car`,
         cars: `${apiUrl}/car`
     }
 };

@@ -30,7 +30,7 @@ export default function AddCarModal(props){
         e.preventDefault();
         setLoadingBtn(true);
         if(editCarData) {
-            axios.patch(`${AppConfig.apis.addCar}/${editCarData._id}`, {
+            axios.patch(`${AppConfig.apis.cars}/${editCarData._id}`, {
                 category, make, model: Number(model), color, registration_no: regNo
             })
                 .then(res => {
