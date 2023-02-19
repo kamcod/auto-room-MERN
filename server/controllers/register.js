@@ -1,5 +1,6 @@
 const User = require('../db/model/user')
-const {badRequestError, unAuthenticatedError} = require('../errors/index')
+const {badRequestError} = require('../errors/index')
+const {unAuthenticatedError} = require('../errors/index')
 
 const {StatusCodes} = require('http-status-codes')
 const sendMail = require("../utils/sendMail");
@@ -30,17 +31,13 @@ const SignIn = async (req, res) =>{
         throw new badRequestError('Please provide email and password')
     }
     const user = await User.findOne({ email })
-    if (!user || user.isAdmin) {
-        throw new unAuthenticatedError('Invalid Credentials')
-    }
+
     const isPasswordCorrect = await user.matchPassword(password)
 
     if (!isPasswordCorrect) {
-        throw new unAuthenticatedError('Invalid Credentials')
+        return res.status(500).json({status: 1000, message: 'Invalid Credentials'})
+        // throw new unAuthenticatedError('Invalid Credentials')
     }
-    // if (!user.isVerified) {
-    //     throw new unAuthenticatedError('Please verify your email');
-    // }
 
     const token = user.createJWT()
     res.cookie("token", token, { httpOnly: true, secure: false })

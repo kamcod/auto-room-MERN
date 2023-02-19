@@ -9,6 +9,7 @@ export default function SignUp() {
     const [isLoading, setIsLoading] = useState(false);
     const [username, setUsername] = useState();
     const [email, setEmail] = useState();
+    const [error, setError] = useState({name: '', email: '', singleError: ''});
 
     const onChangeUsername = (e) => {
         setUsername(e.target.value)
@@ -19,6 +20,26 @@ export default function SignUp() {
     const registerUser = (event) => {
         event.preventDefault();
         setIsLoading(true);
+        setError({name: '', email: '', singleError: ''});
+        if(username.length < 3){
+            setError({
+                name: 'Minimum 3 characters are allowed!',
+                email: '',
+                singleError: ''
+            });
+            setIsLoading(false);
+            return;
+        }
+        let regex = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
+        if(!regex.test(email)){
+            setError({
+                name: '',
+                email: 'Invalid Email!',
+                singleError: ''
+            })
+            setIsLoading(false);
+            return;
+        }
         axios.post(AppConfig.apis.registerUser, {
             name: username,
             email
@@ -52,10 +73,13 @@ export default function SignUp() {
                     <h2>Create A New Account</h2>
                     <form className="form" onSubmit={registerUser} method="post">
                         <label htmlFor="name">Name: </label> <br />
-                        <input type="text" id="name" name="name" value={username} maxLength="20" onChange={onChangeUsername} />
-                        <br /> <br />
+                        <input type="text" id="name" name="name" value={username} maxLength="20" onChange={onChangeUsername} required/>
+                        <div style={{fontSize: '12px', color: 'red'}}><b>{error.name}</b></div>
+                        <br />
                         <label htmlFor="email">Email: </label> <br />
-                        <input type="text" id="email" name="email" value={email} onChange={onChangeEmail} />
+                        <input type="text" id="email" name="email" value={email} onChange={onChangeEmail} required/>
+                        <div style={{fontSize: '12px', color: 'red'}}><b>{error.email}</b></div>
+                        <div style={{fontSize: '12px', color: 'red'}}><b>{error.singleError}</b></div>
                         <br /> <br />
                         <br /> <br />
                         <button type="submit" disabled={isLoading}>

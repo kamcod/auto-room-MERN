@@ -6,8 +6,10 @@ import Pagination from 'react-bootstrap/Pagination';
 import AddCarModal from "./AddCarModal";
 import Form from "react-bootstrap/Form";
 import Spinner from 'react-bootstrap/Spinner';
+import {useNavigate} from "react-router-dom";
 
 export default function Dashboard() {
+    const navigate = useNavigate();
     const [userName, setUserName] = useState();
     const [currentPage, setCurrentPage] = useState(1);
     const [paginationItems, setPaginationItems] = useState([]);
@@ -22,7 +24,6 @@ export default function Dashboard() {
         let active = Number(data.currentPage);
         let totalPages = Number(data.totalPages);
         let currentPage = Number(data.currentPage);
-        console.log('pag data', data);
         items.push(
             <Pagination.First onClick={() => setCurrentPage(1)} disabled={currentPage === 1}/>,
             <Pagination.Prev onClick={(e) => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}/>,
@@ -97,15 +98,39 @@ export default function Dashboard() {
                 console.log("error", err);
             })
     }
-    const viewByCategory = (value) => {
-        let filteredData = carsData.filter(i => i.category === value);
-        setCarsData(filteredData);
+    const logoutUser = () => {
+        axios.delete(AppConfig.apis.logoutUser)
+            .then(res => {
+                if(res.status === 200) {
+                    navigate("/login", { replace: true });
+                }
+            })
+            .catch(err => {
+                console.log("error", err);
+            })
+    }
+    const viewByCategory = async (value) => {
+        axios.get(`${AppConfig.apis.getDashboardStats}?page=${currentPage}`)
+            .then(res => {
+                if(res.status === 200) {
+                    const {cars, pagination} = res.data;
+                    let filteredData = cars.filter(i => i.category === value);
+                    setCarsData(filteredData);
+                    setPagination(pagination);
+                }
+            })
+            .catch(err => {
+                console.log("error", err);
+            })
     }
     useEffect(()=>{
        fetchDashboardData();
     }, [currentPage])
     return (
         <div>
+            <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+                <button type="button" className="add-new-car-btn" onClick={logoutUser}>Logout</button>
+            </div>
             <div className="d-flex flex-column justify-content-center align-items-center">
                 <div className="dashboard-title">
                     <h1>Welcome {userName}!</h1>
