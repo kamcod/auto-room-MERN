@@ -11,6 +11,7 @@ import {useNavigate} from "react-router-dom";
 export default function Dashboard() {
     const navigate = useNavigate();
     const [userName, setUserName] = useState();
+    const [registeredCars, setRegisteredCars] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
     const [paginationItems, setPaginationItems] = useState([]);
     const [carsData, setCarsData] = useState([]);
@@ -47,7 +48,8 @@ export default function Dashboard() {
         axios.get(`${AppConfig.apis.getDashboardStats}?page=${currentPage}`)
             .then(res => {
                 if(res.status === 200) {
-                    const {cars, name, pagination} = res.data;
+                    const {cars, name, pagination, totalCars} = res.data;
+                    setRegisteredCars(Number(totalCars));
                     setCarsData(cars);
                     setPagination(pagination);
                     setUserName(name);
@@ -137,7 +139,7 @@ export default function Dashboard() {
                 </div>
                 <div className="dashboard-card">
                     <p>Registered Cars: </p>
-                    <p>{carsData.length < 10 ? `0${carsData.length}` : carsData.length}</p>
+                    <p>{registeredCars < 10 ? `0${registeredCars}` : registeredCars}</p>
                 </div>
             </div>
 

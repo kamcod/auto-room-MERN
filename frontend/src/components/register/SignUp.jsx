@@ -49,7 +49,7 @@ export default function SignUp() {
                     setIsLoading(false);
                     setEmail('');
                     setUsername('');
-                    navigate("/login", { replace: true });
+                    navigate("/confirmation", { replace: true });
                 }
             })
             .catch (err => {

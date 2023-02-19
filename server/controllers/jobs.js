@@ -16,6 +16,7 @@ const getDashboardStats = async (req, res) => {
         res.status(StatusCodes.OK).json({
             name: user.name,
             cars,
+            totalCars: carsCount,
             pagination: {
                 perPage,
                 currentPage: page,
