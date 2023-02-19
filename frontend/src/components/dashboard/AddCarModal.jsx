@@ -49,7 +49,7 @@ export default function AddCarModal(props){
                     console.log("error", err);
                 })
         } else {
-            axios.post(AppConfig.apis.addCar, {
+            axios.post(AppConfig.apis.cars, {
                 category, make, model: Number(model), color, registration_no: regNo
             })
                 .then(res => {
