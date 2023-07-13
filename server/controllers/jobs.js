@@ -2,6 +2,7 @@ const {badRequestError} = require('../errors/index');
 const {StatusCodes} = require('http-status-codes')
 const User = require('../db/model/user');
 const Cars = require('../db/model/cars')
+const stripe = require("stripe")(process.env.STRIPE_KEY);
 
 const getDashboardStats = async (req, res) => {
     const {page} = req.query;
@@ -75,11 +76,27 @@ const deleteCar = async (req, res) => {
     res.status(StatusCodes.OK).json({ status: "remove", car})
 };
 
+const createPaymentIntent = async (req, res) => {
+    const { amount } = req.body;
+    const paymentIntent = await stripe.paymentIntents.create({
+        amount,
+        currency: "usd",
+        automatic_payment_methods: {
+          enabled: true,
+        },
+      });
+    
+      res.send({
+        clientSecret: paymentIntent.client_secret,
+      });
+};
+
 module.exports = {
     getDashboardStats,
     getAllCars,
     addCar,
     editCar,
     getCar,
-    deleteCar
+    deleteCar,
+    createPaymentIntent
 };

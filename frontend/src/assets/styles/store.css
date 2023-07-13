@@ -14,3 +14,22 @@
   font-size: 22px;
 }
 
+.payment-now-btn {
+  margin: 40px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  height: 45px;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 12px;
+  font-style: normal;
+  text-align: left;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  background-color: #00b82e;
+  padding: 10px 15px;
+}
+

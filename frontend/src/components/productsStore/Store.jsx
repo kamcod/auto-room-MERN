@@ -6,7 +6,7 @@ export default function Store() {
   const PRODUCTS = [
     {
       id: 0,
-      name: 'Typres',
+      name: 'Tyres',
       price: 800,
       currencyUnit: '$',
       inStock: 200,

@@ -32,7 +32,6 @@ export default function SignUp() {
         }
         let regex =  /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         if(!regex.test(email)){
-            console.log('herere', regex.test(email));
             setError({
                 name: '',
                 email: 'Invalid Email!',
