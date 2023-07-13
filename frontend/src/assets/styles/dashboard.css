@@ -30,6 +30,21 @@
     background-color: #4da3ff;
     padding: 10px 15px;
 }
+a.nav-bar-buttons {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #7575fd;
+    font-weight: 600;
+    border-bottom: 3px solid #7575fd;
+    padding: 0 5px;
+    margin: 0 10px;
+}
+a.add-new-car-btn {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
 .cars-table-wrapper {
     padding: 10px 0;
 }

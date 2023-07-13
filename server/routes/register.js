@@ -7,4 +7,5 @@ router.route('/register').post(SignUp)
 router.route('/login').post(SignIn)
 router.route('/logout').delete(Logout)
 
+
 module.exports = router

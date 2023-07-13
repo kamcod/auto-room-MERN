@@ -30,7 +30,7 @@ export default function SignIn(){
             setIsLoading(false);
             return;
         }
-        let regex = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
+        let regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         if(!regex.test(email)){
             setError({
                 password: '',

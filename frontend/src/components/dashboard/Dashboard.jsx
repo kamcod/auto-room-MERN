@@ -1,12 +1,11 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
 import AppConfig from "../../utils/AppConfig";
-import "../../assets/styles/dashboard.css"
 import Pagination from 'react-bootstrap/Pagination';
 import AddCarModal from "./AddCarModal";
 import Form from "react-bootstrap/Form";
 import Spinner from 'react-bootstrap/Spinner';
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Dashboard() {
     const navigate = useNavigate();
@@ -100,17 +99,7 @@ export default function Dashboard() {
                 console.log("error", err);
             })
     }
-    const logoutUser = () => {
-        axios.delete(AppConfig.apis.logoutUser)
-            .then(res => {
-                if(res.status === 200) {
-                    navigate("/login", { replace: true });
-                }
-            })
-            .catch(err => {
-                console.log("error", err);
-            })
-    }
+
     const viewByCategory = async (value) => {
         axios.get(`${AppConfig.apis.getDashboardStats}?page=${currentPage}`)
             .then(res => {
@@ -130,9 +119,6 @@ export default function Dashboard() {
     }, [currentPage])
     return (
         <div>
-            <div style={{display: 'flex', justifyContent: 'flex-end'}}>
-                <button type="button" className="add-new-car-btn" onClick={logoutUser}>Logout</button>
-            </div>
             <div className="d-flex flex-column justify-content-center align-items-center">
                 <div className="dashboard-title">
                     <h1>Welcome {userName}!</h1>

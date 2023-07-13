@@ -30,8 +30,9 @@ export default function SignUp() {
             setIsLoading(false);
             return;
         }
-        let regex = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
+        let regex =  /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         if(!regex.test(email)){
+            console.log('herere', regex.test(email));
             setError({
                 name: '',
                 email: 'Invalid Email!',
@@ -73,7 +74,7 @@ export default function SignUp() {
                     <h2>Create A New Account</h2>
                     <form className="form" onSubmit={registerUser} method="post">
                         <label htmlFor="name">Name: </label> <br />
-                        <input type="text" id="name" name="name" value={username} maxLength="20" onChange={onChangeUsername} required/>
+                        <input type="text" id="name" name="name" value={username} maxLength="30" onChange={onChangeUsername} required/>
                         <div style={{fontSize: '12px', color: 'red'}}><b>{error.name}</b></div>
                         <br />
                         <label htmlFor="email">Email: </label> <br />
