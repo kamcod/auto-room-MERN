@@ -12,6 +12,7 @@ const bodyParser = require('body-parser');
 
 const registerRoutes = require('./routes/register')
 const jobsRoutes = require('./routes/jobs')
+const webHooksRoute = require('./routes/webHooks');
 const authentication = require('./middlewares/authentication')
 
 
@@ -37,6 +38,7 @@ app.use(cors({ credentials: true, origin: process.env.frontend_domain }))
 app.use(helmet())
 app.use('/api', registerRoutes)
 app.use('/api', authentication, jobsRoutes)
+app.use('/', webHooksRoute);
 
 app.use(errorHandler)
 app.use(notFound)

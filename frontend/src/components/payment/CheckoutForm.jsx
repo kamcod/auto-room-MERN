@@ -1,4 +1,4 @@
-import {useStripe, useElements, PaymentElement, CardElement} from '@stripe/react-stripe-js';
+import {useStripe, useElements, PaymentElement, LinkAuthenticationElement, CardElement} from '@stripe/react-stripe-js';
 import { useState } from 'react';
 
 export default function CheckoutForm () {
@@ -7,6 +7,7 @@ export default function CheckoutForm () {
   const elements = useElements();
 
   const [isLoading, setIsLoading] = useState();
+  const [email, setEmail] = useState();
 
   const paymentElementOptions = {
     layout: "tabs"
@@ -22,26 +23,33 @@ export default function CheckoutForm () {
       return;
     }
 
-    // const result = await stripe.confirmPayment({
-    //   //`Elements` instance that was used to create the Payment Element
-    //   elements,
-    //   confirmParams: {
-    //     return_url: "https://example.com/order/123/complete",
-    //   },
-    // });
+    setIsLoading(true);
 
-    // if (result.error) {
-    //   // Show error to your customer (for example, payment details incomplete)
-    //   console.log(result.error.message);
-    // } else {
-    //   // Your customer will be redirected to your `return_url`. For some payment
-    //   // methods like iDEAL, your customer will be redirected to an intermediate
-    //   // site first to authorize the payment, then redirected to the `return_url`.
-    // }
+    const result = await stripe.confirmPayment({
+      //`Elements` instance that was used to create the Payment Element
+      elements,
+      confirmParams: {
+        return_url: "http://localhost:3000/payment-confirmation",
+      },
+    });
+
+    if (result.error) {
+      // Show error to your customer (for example, payment details incomplete)
+      console.log(result.error.message);
+    } else {
+      // Your customer will be redirected to your `return_url`. For some payment
+      // methods like iDEAL, your customer will be redirected to an intermediate
+      // site first to authorize the payment, then redirected to the `return_url`.
+    }
+    setIsLoading(false);
   };
   return (
     <div>
       <form onSubmit={handleSubmit}>
+      <LinkAuthenticationElement
+        id="link-authentication-element"
+        onChange={(e) => setEmail(e.target.value)}
+      />
       <PaymentElement id="payment-element" options={paymentElementOptions} />
       {/* <CardElement />      */}
       {/* card element is for single line card element (no further ui and no need of setting client secret) */}

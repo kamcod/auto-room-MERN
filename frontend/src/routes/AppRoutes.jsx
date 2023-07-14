@@ -7,6 +7,7 @@ import Confirmation from "../components/register/confirmation";
 import Store from "../components/productsStore/Store";
 import Upgrade from "../components/upgrade/Upgrade";
 import Checkout from "../components/payment/Checkout";
+import PaymentConfirmation from "../components/payment/PaymentConfirmation";
 
 export default function AppRoutes () {
     return(
@@ -17,6 +18,7 @@ export default function AppRoutes () {
                 <Route path="/upgrade" element={<Upgrade />} />
                 <Route path="/store" element={<Store />} />
                 <Route path="/checkout/:id" element={<Checkout />} />
+                <Route path="/payment-confirmation" element={<PaymentConfirmation />} />
             </Route>
 
             <Route path="/confirmation" element={<Confirmation />} />

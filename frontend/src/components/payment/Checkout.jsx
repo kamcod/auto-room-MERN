@@ -47,7 +47,6 @@ export default function Checkout() {
     })
             .then(res => {
                 if(res.status === 200) {
-                    console.log('res...payment', res.data.clientSecret);
                     setClientSecret(res.data.clientSecret);
                 }
             })
