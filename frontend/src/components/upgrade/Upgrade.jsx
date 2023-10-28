@@ -20,7 +20,7 @@ const PLANS = [
 export default function Upgrade() {
   return (
     <div className='product-page-wrapper'>
-      <h4 style={{textAlign: 'center', marginBottom: '20px'}}>Upgrade Plan</h4>
+      <h4 style={{textAlign: 'center', marginBottom: '30px'}}>Upgrade Plan</h4>
       <div className='row d-flex justify-content-center'>
       {PLANS?.map(plan => {
         return <div className='col-3'>

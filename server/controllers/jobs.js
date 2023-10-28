@@ -85,7 +85,7 @@ const createPaymentIntent = async (req, res) => {
           enabled: true,
         },
       });
-    
+
       res.send({
         clientSecret: paymentIntent.client_secret,
       });

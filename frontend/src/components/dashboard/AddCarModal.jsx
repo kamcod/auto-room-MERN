@@ -16,6 +16,7 @@ export default function AddCarModal(props){
     const [loadingBtn, setLoadingBtn] = useState(false);
 
     useEffect(()=>{
+        console.log('dit car data', editCarData);
         if(editCarData){
             const {category, make, model, color, registration_no: regNo} = editCarData;
             setMake(make);
@@ -30,7 +31,7 @@ export default function AddCarModal(props){
         e.preventDefault();
         setLoadingBtn(true);
         if(editCarData) {
-            axios.patch(`${AppConfig.apis.cars}/${editCarData._id}`, {
+            axios.patch(`${AppConfig.apis.cars}/${editCarData._id || editCarData.id}`, {
                 category, make, model: Number(model), color, registration_no: regNo
             })
                 .then(res => {

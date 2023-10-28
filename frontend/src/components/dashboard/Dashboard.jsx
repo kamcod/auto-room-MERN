@@ -104,6 +104,7 @@ export default function Dashboard() {
         axios.get(`${AppConfig.apis.getDashboardStats}?page=${currentPage}`)
             .then(res => {
                 if(res.status === 200) {
+                    debugger;
                     const {cars, pagination} = res.data;
                     let filteredData = cars.filter(i => i.category === value);
                     setCarsData(filteredData);
@@ -165,8 +166,8 @@ export default function Dashboard() {
                     </tr>
                     </thead>
                     <tbody>
-                {carsData?.map(({_id: id, category, registration_no, make, model, color }, index) => {
-                    return <tr key={id}>
+                {carsData?.map(({_id, id, category, registration_no, make, model, color }, index) => {
+                    return <tr key={_id || id}>
                     <td style={{width: "100px"}}>{index+1}</td>
                     <td>{category}</td>
                     <td>{registration_no}</td>
@@ -174,14 +175,14 @@ export default function Dashboard() {
                     <td>{model}</td>
                     <td>{color}</td>
                     <td>
-                        <span><a href="#" style={{cursor: 'pointer'}} onClick={()=>editCar(id)}>Edit</a></span>
+                        <span><a href="#" style={{cursor: 'pointer'}} onClick={()=>editCar(_id || id)}>Edit</a></span>
                              {` || `}
-                        <span><a href="#" style={{cursor: 'pointer'}} onClick={()=>deleteCar(id)}>
-                            {deleteLoading === `dload${id}` ? <Spinner animation="border" size="sm" /> : 'Delete' }
+                        <span><a href="#" style={{cursor: 'pointer'}} onClick={()=>deleteCar(_id || id)}>
+                            {deleteLoading === `dload${_id || id}` ? <Spinner animation="border" size="sm" /> : 'Delete' }
                         </a></span>
                             {` || `}
-                        <span><a href="#" style={{cursor: 'pointer'}} onClick={()=>duplicate(id, category, registration_no, make, model, color)}>
-                            {duplicateLoading === `load${id}` ? <Spinner animation="border" size="sm" /> : 'Duplicate' }
+                        <span><a href="#" style={{cursor: 'pointer'}} onClick={()=>duplicate(_id || id, category, registration_no, make, model, color)}>
+                            {duplicateLoading === `load${_id || id}` ? <Spinner animation="border" size="sm" /> : 'Duplicate' }
                         </a></span>
                     </td>
                 </tr>
