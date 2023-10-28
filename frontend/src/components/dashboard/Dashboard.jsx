@@ -104,7 +104,6 @@ export default function Dashboard() {
         axios.get(`${AppConfig.apis.getDashboardStats}?page=${currentPage}`)
             .then(res => {
                 if(res.status === 200) {
-                    debugger;
                     const {cars, pagination} = res.data;
                     let filteredData = cars.filter(i => i.category === value);
                     setCarsData(filteredData);

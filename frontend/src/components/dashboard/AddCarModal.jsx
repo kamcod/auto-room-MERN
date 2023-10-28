@@ -16,7 +16,6 @@ export default function AddCarModal(props){
     const [loadingBtn, setLoadingBtn] = useState(false);
 
     useEffect(()=>{
-        console.log('dit car data', editCarData);
         if(editCarData){
             const {category, make, model, color, registration_no: regNo} = editCarData;
             setMake(make);
