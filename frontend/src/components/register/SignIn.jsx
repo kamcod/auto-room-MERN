@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import AppConfig from "../../utils/AppConfig";
@@ -68,7 +68,19 @@ export default function SignIn(){
                 }
                 console.log("error", err);
             })
-    }
+    };
+
+    useEffect(() => {
+        axios.defaults.withCredentials = true;
+        axios.get(AppConfig.apis.getDashboardStats)
+            .then(res => {
+                if(res.status === 200){
+                    navigate("/dashboard", {replace: true});
+                }
+            })
+            .catch(err => console.log("error", err))
+    }, []);
+
     return(
         <div>
             <div className="register-page-title">
