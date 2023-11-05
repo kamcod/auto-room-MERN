@@ -15,6 +15,7 @@ body{
     background-color: white;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
     border-radius: 8px;
+    height: calc(100vh - 255px);
 }
 
 @media only screen and (max-width: 767px) {
@@ -36,7 +37,8 @@ body{
     color: #3c449a;
 }
 .register-page-wrapper .sidebar{
-    height: 34rem;
+    /*height: 34rem;*/
+    height: calc(100vh - 255px);
     width: 25%;
     border-radius: 8px 0 0 8px;
     background-image: url('https://thumbs.dreamstime.com/b/glowing-smooth-gradient-website-template-banner-header-sidebar-graphic-blurred-blue-abstract-background-neon-pleasant-155830144.jpg');
