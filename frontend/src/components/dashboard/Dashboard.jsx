@@ -29,7 +29,7 @@ export default function Dashboard() {
             for (let pageNumber = 1; pageNumber <= totalPages; pageNumber++) {
                 items.push(
                     // eslint-disable-line
-                    <Pagination.Item key={pageNumber} onClick={() => setCurrentPage(pageNumber)} active={pageNumber == active}>
+                    <Pagination.Item key={pageNumber} onClick={() => setCurrentPage(pageNumber)} active={+pageNumber === +active}>
                         {pageNumber}
                     </Pagination.Item>,
                 );
@@ -113,9 +113,8 @@ export default function Dashboard() {
             })
     }
     useEffect(()=>{
-        // eslint-disable-line
-       fetchDashboardData();
-    }, [currentPage])
+       fetchDashboardData();// eslint-disable-line
+    }, [currentPage])// eslint-disable-line
     return (
         <div>
             <div className="d-flex flex-column justify-content-center align-items-center">
@@ -138,8 +137,7 @@ export default function Dashboard() {
             {carsData.length > 0 && <div className="table-top-bar">
                 <button type="button" className="add-new-car-btn" onClick={() => setShowAddCarModal(true)}>Add New Car</button>
                 <div className="d-flex justify-content-between gap-4 align-items-center">
-                    {/* eslint-disable-line*/}
-                    <a href="#" style={{cursor: 'pointer'}} onClick={fetchDashboardData}>Clear Filter</a>
+                    <span style={{cursor: 'pointer', textDecoration: 'underline'}} onClick={fetchDashboardData}>Clear Filter</span>
                     <Form.Select  style={{width: '250px'}} onChange={(e)=>viewByCategory(e.target.value)}>
                         <option>View By Category</option>
                         <option value="car">Car</option>
@@ -174,15 +172,15 @@ export default function Dashboard() {
                     <td>{model}</td>
                     <td>{color}</td>
                     <td>
-                        <span><a href="#" style={{cursor: 'pointer'}} onClick={()=>editCar(_id || id)}>Edit</a></span>
+                        <span style={{cursor: 'pointer', textDecoration: 'underline'}} onClick={()=>editCar(_id || id)}>Edit</span>
                              {` || `}
-                        <span><a href="#" style={{cursor: 'pointer'}} onClick={()=>deleteCar(_id || id)}>
+                        <span style={{cursor: 'pointer', textDecoration: 'underline'}} onClick={()=>deleteCar(_id || id)}>
                             {deleteLoading === `dload${_id || id}` ? <Spinner animation="border" size="sm" /> : 'Delete' }
-                        </a></span>
+                        </span>
                             {` || `}
-                        <span><a href="#" style={{cursor: 'pointer'}} onClick={()=>duplicate(_id || id, category, registration_no, make, model, color)}>
+                        <span style={{cursor: 'pointer', textDecoration: 'underline'}} onClick={()=>duplicate(_id || id, category, registration_no, make, model, color)}>
                             {duplicateLoading === `load${_id || id}` ? <Spinner animation="border" size="sm" /> : 'Duplicate' }
-                        </a></span>
+                        </span>
                     </td>
                 </tr>
                 })}
