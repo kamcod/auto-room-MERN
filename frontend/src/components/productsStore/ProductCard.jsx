@@ -6,7 +6,7 @@ export default function ProductCard({ product }) {
 
   return (
     <div className="product-card" role="button" onClick={() => navigate(`/checkout/${id}`)}>
-      <img src={imgSrc} width="200px" height="300px" alt={`${name} image`} />
+      <img src={imgSrc} width="200px" height="300px" alt={`${name}`} />
       <p className="product-name">{name}</p>
       <p className="product-price">{`${currencyUnit}${price}`}</p>
       <p>{`(${inStock} in stock)`}</p>

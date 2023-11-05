@@ -79,7 +79,7 @@ export default function SignIn(){
                 }
             })
             .catch(err => console.log("error", err))
-    }, []);
+    }, [navigate]);
 
     return(
         <div>

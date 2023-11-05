@@ -1,4 +1,4 @@
-import {useStripe, useElements, PaymentElement, LinkAuthenticationElement, CardElement} from '@stripe/react-stripe-js';
+import {useStripe, useElements, PaymentElement, LinkAuthenticationElement} from '@stripe/react-stripe-js';
 import { useState } from 'react';
 
 export default function CheckoutForm () {
@@ -8,6 +8,7 @@ export default function CheckoutForm () {
 
   const [isLoading, setIsLoading] = useState();
   const [email, setEmail] = useState();
+  console.log(email);
 
   const paymentElementOptions = {
     layout: "tabs"

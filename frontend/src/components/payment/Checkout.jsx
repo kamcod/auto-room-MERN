@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router";
+import { useParams } from "react-router";
 import tyreImage from '../../assets/images/tyres.png';
 import carHLImage from '../../assets/images/carHL.png';
 import CheckoutForm from "./CheckoutForm";
@@ -53,7 +53,7 @@ export default function Checkout() {
             .catch(err => {
                 console.log("error", err);
             })
-  }, [])
+  }, [productId])
 
   const appearance = {
     theme: 'stripe',
@@ -68,12 +68,12 @@ export default function Checkout() {
       <h3 style={{textAlign: 'center', marginBottom: '20px'}}>Payment for your order</h3>
       <div className="col-6">
         <div style={{textAlign: 'center'}}>
-        <img src={productDetails?.imgSrc} width="200px" height="300px" alt={`${productDetails?.name} image`} style={{borderRadius: '10px'}} />
+        <img src={productDetails?.imgSrc} width="200px" height="300px" alt={`${productDetails?.name}`} style={{borderRadius: '10px'}} />
       <p className="product-name">{productDetails?.name}</p>
       <p className="product-price">{`${productDetails?.currencyUnit}${productDetails?.price}`}</p>
       <p>{`(${productDetails?.inStock} in stock)`}</p>
         </div>
-        
+
       </div>
       <div className="col-4">
         {clientSecret && (
@@ -83,7 +83,7 @@ export default function Checkout() {
            </Elements>
           </>
         )}
-        
+
         </div>
     </div>
   )

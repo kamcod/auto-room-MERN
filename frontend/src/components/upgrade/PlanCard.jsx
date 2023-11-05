@@ -1,10 +1,10 @@
-import { useState } from "react";
+// import { useState } from "react";
 import { useNavigate } from "react-router";
 
 export default function PlanCard({ plan }) {
   const { id, name, price, currencyUnit, description } = plan;
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
 
   return (
     <div className="product-card" role="button" onClick={() => navigate(`/checkout/${id}`)}>
@@ -12,13 +12,13 @@ export default function PlanCard({ plan }) {
       <p className="product-price">{`${currencyUnit}${price}`}</p>
       <p>{description}</p>
       <div className="d-flex justify-content-center" style={{margin: '5px 0px 15px 0'}}>
-      <button className="add-new-car-btn d-flex justify-content-center" style={{width: '90%', alignItems: 'center'}} disabled={isLoading} id="submit">
+      <button className="add-new-car-btn d-flex justify-content-center" style={{width: '90%', alignItems: 'center'}} id="submit">
         <span id="button-text">
-          {isLoading ? <div className="spinner" id="spinner"></div> : "Buy"}
+          {/*{isLoading ? <div className="spinner" id="spinner"></div> : "Buy"}*/}
         </span>
       </button>
       </div>
-      
+
     </div>
   )
 }

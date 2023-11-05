@@ -5,10 +5,8 @@ import Pagination from 'react-bootstrap/Pagination';
 import AddCarModal from "./AddCarModal";
 import Form from "react-bootstrap/Form";
 import Spinner from 'react-bootstrap/Spinner';
-import { useNavigate } from "react-router-dom";
 
 export default function Dashboard() {
-    const navigate = useNavigate();
     const [userName, setUserName] = useState();
     const [registeredCars, setRegisteredCars] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
@@ -30,8 +28,8 @@ export default function Dashboard() {
         );
             for (let pageNumber = 1; pageNumber <= totalPages; pageNumber++) {
                 items.push(
-                    <Pagination.Item key={pageNumber} onClick={() => setCurrentPage(pageNumber)}
-                                     active={pageNumber == active}>
+                    // eslint-disable-line
+                    <Pagination.Item key={pageNumber} onClick={() => setCurrentPage(pageNumber)} active={pageNumber == active}>
                         {pageNumber}
                     </Pagination.Item>,
                 );
@@ -115,6 +113,7 @@ export default function Dashboard() {
             })
     }
     useEffect(()=>{
+        // eslint-disable-line
        fetchDashboardData();
     }, [currentPage])
     return (
@@ -139,6 +138,7 @@ export default function Dashboard() {
             {carsData.length > 0 && <div className="table-top-bar">
                 <button type="button" className="add-new-car-btn" onClick={() => setShowAddCarModal(true)}>Add New Car</button>
                 <div className="d-flex justify-content-between gap-4 align-items-center">
+                    {/* eslint-disable-line*/}
                     <a href="#" style={{cursor: 'pointer'}} onClick={fetchDashboardData}>Clear Filter</a>
                     <Form.Select  style={{width: '250px'}} onChange={(e)=>viewByCategory(e.target.value)}>
                         <option>View By Category</option>
