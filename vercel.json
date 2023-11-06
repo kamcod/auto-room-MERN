@@ -9,21 +9,21 @@
       }
     },
     {
-      "src": ".server/**/*",
+      "src": ".server/app.js",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "server/app.js"
+      "dest": "./server"
     },
     {
       "handle": "filesystem"
     },
     {
       "src": "/(.*)",
-      "dest": "frontend/index.html"
+      "dest": "./frontend/index.html"
     }
   ]
 }
