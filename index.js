@@ -8,7 +8,7 @@ app.get('/api', (req, res) => {
 })
 
 
-const port = 5000;
+const port =  process.env.PORT || 5000;
 
 const start = async () =>{
     console.log("DB is connected!")
