@@ -3,7 +3,7 @@ const app = express();
 
 app.use(express.json())
 
-app.get('/api', (req, res) => {
+app.get('/', (req, res) => {
     res.send('ab sahi ha....')
 })
 
@@ -17,4 +17,6 @@ const start = async () =>{
     })
 }
 
-start()
+start().catch(error => {
+    console.error('Error starting the server:', error);
+});
