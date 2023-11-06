@@ -31,9 +31,6 @@ app.use(express.json())
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json());
 
-app.get('/testing', (req, res) => {
-    res.send('han g sahi ha....')
-})
 app.use(cookieParser());
 app.use(xss())
 app.use(cors({ credentials: true, origin: process.env.frontend_domain }))

@@ -1,6 +1,6 @@
 # Getting Started with Auto Room Project
 
-This project was a basic MERN app name `Auto Room`. Where a user signup and then registered a new car. That record can be updated and deleted by the user.
+This project was a basic MERN index name `Auto Room`. Where a user signup and then registered a new car. That record can be updated and deleted by the user.
 
 ## Available Scripts
 
@@ -10,7 +10,7 @@ In the project, we have two directories named frontend and server:
 ### `npm install`
 ### `npm start`
 
-Runs the app in the development mode.\
+Runs the index in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 The page will reload when you make changes.\
